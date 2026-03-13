@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dra. Marina Felix — Farmacêutica Clínica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage: #7a9e87;
+      --sage-light: #a8c4b0;
+      --sage-dark: #4e7260;
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --charcoal: #2c2c2c;
+      --muted: #7a7570;
+      --accent: #c4956a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(122,158,135,0.15);
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--sage-dark);
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--sage-dark); }
+    .nav-cta {
+      background: var(--sage-dark); color: white !important;
+      padding: 0.5rem 1.2rem; border-radius: 2rem;
+      transition: background 0.3s !important;
+    }
+    .nav-cta:hover { background: var(--accent) !important; color: white !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -10%; right: -5%;
+      width: 55%; height: 110%;
+      background: linear-gradient(135deg, var(--sage-light) 0%, var(--sage) 60%, var(--sage-dark) 100%);
+      border-radius: 60% 40% 50% 50% / 40% 50% 60% 50%;
+      opacity: 0.18; z-index: 0;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sage-dark); font-weight: 500;
+      background: rgba(122,158,135,0.12);
+      padding: 0.4rem 1rem; border-radius: 2rem;
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 300; line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero h1 em { font-style: italic; color: var(--sage-dark); }
+    .hero p {
+      font-size: 1.05rem; line-height: 1.75; color: var(--muted);
+      max-width: 480px; margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s 0.6s ease both;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.8s ease both;
+    }
+    .btn-primary {
+      background: var(--sage-dark); color: white;
+      padding: 0.9rem 2rem; border-radius: 3rem;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.03em;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--sage-dark);
+      padding: 0.9rem 2rem; border-radius: 3rem;
+      font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; border: 2px solid var(--sage-light);
+      cursor: pointer; transition: all 0.3s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--sage-dark); background: rgba(122,158,135,0.08); }
+
+    .hero-visual {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; align-items: center;
+      animation: fadeLeft 1s 0.3s ease both;
+    }
+    .hero-card {
+      background: white;
+      border-radius: 2rem;
+      padding: 2.5rem;
+      box-shadow: 0 30px 80px rgba(78,114,96,0.12), 0 8px 24px rgba(0,0,0,0.06);
+      max-width: 380px; width: 100%;
+      position: relative;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: -1px; left: 2rem; right: 2rem; height: 4px;
+      background: linear-gradient(90deg, var(--sage-light), var(--sage-dark));
+      border-radius: 0 0 4px 4px;
+    }
+    .card-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage-light), var(--sage-dark));
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+    .card-title { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; letter-spacing: 0.04em; }
+    .card-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      border-top: 1px solid rgba(122,158,135,0.15); padding-top: 1.5rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 600; color: var(--sage-dark);
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); }
+    .card-badge {
+      position: absolute; bottom: -1rem; right: 1.5rem;
+      background: var(--accent); color: white;
+      padding: 0.5rem 1rem; border-radius: 2rem;
+      font-size: 0.75rem; font-weight: 500;
+      box-shadow: 0 4px 16px rgba(196,149,106,0.35);
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--cream);
+      padding: 2rem 4rem;
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem; flex-wrap: wrap;
+      border-top: 1px solid rgba(122,158,135,0.1);
+      border-bottom: 1px solid rgba(122,158,135,0.1);
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.85rem; color: var(--muted); font-weight: 400;
+    }
+    .trust-icon { font-size: 1.1rem; }
+
+    /* SERVICES */
+    .section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--sage-dark); font-weight: 500; margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300;
+      line-height: 1.2; margin-bottom: 1rem; color: var(--charcoal);
+    }
+    .section-title em { font-style: italic; color: var(--sage-dark); }
+    .section-sub { font-size: 1rem; color: var(--muted); max-width: 500px; line-height: 1.7; margin-bottom: 3rem; }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .service-card {
+      background: white; border-radius: 1.5rem;
+      padding: 2rem; border: 1px solid rgba(122,158,135,0.12);
+      transition: all 0.35s; cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--sage-light), var(--sage-dark));
+      transform: scaleX(0); transition: transform 0.35s; transform-origin: left;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(78,114,96,0.1); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon {
+      font-size: 2rem; margin-bottom: 1.2rem;
+      width: 52px; height: 52px; border-radius: 14px;
+      background: rgba(122,158,135,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600; margin-bottom: 0.6rem;
+    }
+    .service-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ABOUT */
+    .about { background: var(--cream); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about-visual {
+      background: linear-gradient(135deg, var(--sage-light) 0%, var(--sage-dark) 100%);
+      border-radius: 2rem; height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; position: relative; overflow: hidden;
+    }
+    .about-visual::before {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 80%; height: 80%; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+    }
+    .about-tag { margin-bottom: 2rem; }
+    .about-text p { font-size: 1rem; line-height: 1.8; color: var(--muted); margin-bottom: 1.2rem; }
+    .about-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.5rem; }
+    .about-list li {
+      display: flex; align-items: center; gap: 0.7rem;
+      font-size: 0.9rem; color: var(--charcoal);
+    }
+    .about-list li::before {
+      content: '✓'; color: var(--sage-dark); font-weight: 700; font-size: 0.9rem;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .testimonial {
+      background: white; border-radius: 1.5rem; padding: 2rem;
+      border: 1px solid rgba(122,158,135,0.1);
+      transition: transform 0.3s;
+    }
+    .testimonial:hover { transform: translateY(-4px); }
+    .stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+    .testimonial-text { font-size: 0.92rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem; font-style: italic; }
+    .testimonial-author { font-size: 0.85rem; font-weight: 500; color: var(--charcoal); }
+    .testimonial-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: linear-gradient(135deg, var(--sage-dark) 0%, #2e5244 100%);
+      padding: 6rem 4rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; top: -50%; left: -10%;
+      width: 60%; height: 200%; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .cta-section .section-label { color: var(--sage-light); }
+    .cta-section .section-title { color: white; }
+    .cta-section .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto 2.5rem; }
+    .cta-form {
+      display: flex; gap: 1rem; max-width: 480px; margin: 0 auto;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .cta-input {
+      flex: 1; min-width: 200px; padding: 0.9rem 1.4rem;
+      border-radius: 3rem; border: none;
+      background: rgba(255,255,255,0.12); color: white;
+      font-size: 0.9rem; outline: none;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .cta-input::placeholder { color: rgba(255,255,255,0.5); }
+    .btn-accent {
+      background: var(--accent); color: white;
+      padding: 0.9rem 2rem; border-radius: 3rem;
+      font-size: 0.9rem; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-accent:hover { background: #d4a478; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal); color: rgba(255,255,255,0.5);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      color: white; font-size: 1.1rem;
+    }
+    footer p { font-size: 0.8rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(32px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+      .hero-visual { display: none; }
+      .section { padding: 4rem 2rem; }
+      .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { height: 250px; }
+      .trust-bar { padding: 2rem; gap: 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Dra. Marina Felix</div>
+    <ul class="nav-links">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato" class="nav-cta">Agendar consulta</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-tag">✦ Farmácia Clínica & Saúde Integrativa</span>
+      <h1>Cuide da sua saúde com <em>orientação especializada</em></h1>
+      <p>Consultas farmacêuticas personalizadas para otimizar seu tratamento, reduzir riscos e melhorar sua qualidade de vida — presencialmente ou online.</p>
+      <div class="hero-buttons">
+        <a href="#contato" class="btn-primary">Agendar consulta gratuita →</a>
+        <a href="#servicos" class="btn-secondary">Ver serviços</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-avatar">🌿</div>
+        <div class="card-name">Dra. Marina Felix</div>
+        <div class="card-title">CRF 12.345 · Farmacêutica Clínica</div>
+        <div class="card-stats">
+          <div class="stat-item">
+            <div class="stat-num">8+</div>
+            <div class="stat-label">anos de experiência</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">1.2k</div>
+            <div class="stat-label">pacientes atendidos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">online disponível</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4.9★</div>
+            <div class="stat-label">avaliação média</div>
+          </div>
+        </div>
+        <div class="card-badge">✦ Atende online</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-icon">🎓</span> Especialista em Farmácia Clínica — ICTQ</div>
+    <div class="trust-item"><span class="trust-icon">🎓</span> Especialista em Farmácia Hospitalar</div>
+    <div class="trust-item"><span class="trust-icon">🎓</span> Especialista em Dor Crônica</div>
+    <div class="trust-item"><span class="trust-icon">📋</span> CRF ativo e regularizado</div>
+    <div class="trust-item"><span class="trust-icon">🌐</span> Atendimento em todo o Brasil</div>
+    <div class="trust-item"><span class="trust-icon">🔒</span> Sigilo e ética garantidos</div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="servicos">
+    <div class="reveal">
+      <p class="section-label">O que ofereço</p>
+      <h2 class="section-title">Serviços <em>especializados</em><br>para o seu bem-estar</h2>
+      <p class="section-sub">Cada consulta é única, adaptada ao seu histórico, medicamentos e objetivos de saúde.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">💊</div>
+        <div class="service-name">Revisão de Medicamentos</div>
+        <p class="service-desc">Análise completa do seu esquema terapêutico para identificar interações, duplicidades e oportunidades de melhora.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧬</div>
+        <div class="service-name">Acompanhamento Farmacoterapêutico</div>
+        <p class="service-desc">Monitoramento contínuo do tratamento, com relatórios e comunicação com sua equipe médica.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <div class="service-name">Saúde Integrativa</div>
+        <p class="service-desc">Orientação sobre suplementação, fitoterápicos e interações com medicamentos convencionais.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👴</div>
+        <div class="service-name">Cuidado ao Idoso</div>
+        <p class="service-desc">Especialidade em polifarmácia e segurança do paciente idoso, reduzindo riscos de quedas e reações adversas.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-name">Interpretação de Exames</div>
+        <p class="service-desc">Análise farmacêutica de resultados laboratoriais com foco no impacto sobre seu tratamento atual.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <div class="service-name">Teleconsulta</div>
+        <p class="service-desc">Atendimento 100% online com a mesma qualidade da consulta presencial, de qualquer lugar do Brasil.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="sobre">
+    <div class="about-inner">
+      <div class="about-visual reveal">🌿</div>
+      <div class="about-text reveal">
+        <p class="section-label about-tag">Sobre mim</p>
+        <h2 class="section-title">Uma farmacêutica que<br><em>coloca o paciente</em> no centro</h2>
+        <p>Sou farmacêutica clínica com mais de 8 anos de experiência, apaixonada por transformar o cuidado com medicamentos em algo acessível e humano.</p>
+        <p>Minha missão é garantir que cada paciente compreenda seu tratamento, se sinta seguro e obtenha o máximo benefício de cada medicamento prescrito.</p>
+        <ul class="about-list">
+          <li>Especialista em Farmácia Clínica pelo ICTQ</li>
+          <li>Especialista em Dor Crônica</li>
+          <li>Formação em Saúde Integrativa e Fitoterápicos</li>
+          <li>Mais de 1.200 pacientes acompanhados</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" id="depoimentos">
+    <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 3rem;">
+      <p class="section-label">Depoimentos</p>
+      <h2 class="section-title">O que dizem<br>meus <em>pacientes</em></h2>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"A Dra. Marina identificou uma interação perigosa entre dois medicamentos que eu tomava há anos. Nenhum outro profissional tinha percebido. Mudou minha vida."</p>
+        <div class="testimonial-author">Maria S., 68 anos</div>
+        <div class="testimonial-role">São Paulo, SP</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Finalmente entendi por que meus exames não melhoravam. A consulta de revisão foi reveladora e o acompanhamento online é muito conveniente."</p>
+        <div class="testimonial-author">Carlos M., 45 anos</div>
+        <div class="testimonial-role">Recife, PE</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Minha mãe tem 80 anos e toma 9 medicamentos. A Dra. Marina simplificou o esquema, reduziu custos e ela melhorou muito. Recomendo demais!"</p>
+        <div class="testimonial-author">Fernanda L., 52 anos</div>
+        <div class="testimonial-role">Belo Horizonte, MG</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contato">
+    <div class="reveal">
+      <p class="section-label">Comece agora</p>
+      <h2 class="section-title">Pronta para cuidar<br>da sua saúde?</h2>
+      <p class="section-sub">Agende uma consulta gratuita de 20 minutos e descubra como a farmácia clínica pode transformar seu tratamento.</p>
+      <div class="cta-form">
+        <input class="cta-input" type="text" placeholder="Seu nome" />
+        <input class="cta-input" type="email" placeholder="Seu e-mail" />
+        <button class="btn-accent">Quero agendar →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Dra. Marina Felix — Farmácia Clínica</div>
+    <p>CRF 4138 · © 2026 · Todos os direitos reservados</p>
+    <p>pharmacia.marina@gmail.com</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
